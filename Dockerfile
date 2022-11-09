@@ -1,14 +1,22 @@
-FROM hasura/graphql-engine:v2.6.1
+# set up some variables
+ARG IMAGE=airflow
+ARG TAG=2.1.2
+ARG STAGEPATH=/tmp/airflow
+
+# builder stage
+FROM bitnami/$IMAGE:$TAG as builder
+
+# FROM hasura/graphql-engine:v2.6.1
 
 # Enable the console
-ENV HASURA_GRAPHQL_ENABLE_CONSOLE=true
+# ENV HASURA_GRAPHQL_ENABLE_CONSOLE=true
 
 # Enable debugging mode. It should be disabled in production.
-ENV HASURA_GRAPHQL_DEV_MODE=true
+# ENV HASURA_GRAPHQL_DEV_MODE=true
 
 # Heroku hobby tier PG has few limitations including 20 max connections
 # https://devcenter.heroku.com/articles/heroku-postgres-plans#hobby-tier
-ENV HASURA_GRAPHQL_PG_CONNECTIONS=15
+# ENV HASURA_GRAPHQL_PG_CONNECTIONS=15
 
 # Change $DATABASE_URL to your heroku postgres URL if you're not using
 # the primary postgres instance in your app
